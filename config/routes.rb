@@ -17,4 +17,6 @@ Rails.application.routes.draw do
   resources :projects, only: [:index, :show, :edit, :update] do
     resources :tickets
   end
+
+  resources :assets, only: [:show], path: :files
 end

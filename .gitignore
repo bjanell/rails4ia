@@ -15,6 +15,6 @@
 # Ignore RubyMine files.
 /.idea
 
-# Ignore public upload directory.
-public/uploads
+# Ignore the public directory.
+uploads
 
