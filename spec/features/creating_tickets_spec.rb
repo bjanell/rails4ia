@@ -49,11 +49,11 @@ RSpec.feature 'Users can create new tickets' do
     attach_file 'File #2', Rails.root.join('spec/fixtures/spin.txt')
     click_button 'Create Ticket'
 
-    expect(page).to have_content('Ticket has been created.')
+    expect(page).to have_content 'Ticket has been created.'
 
-    within('#ticket .assets') do
-      expect(page).to have_content('speed.txt')
-      expect(page).to have_content('spin.txt')
+    within('#ticket .attachments') do
+      expect(page).to have_content 'speed.txt'
+      expect(page).to have_content 'spin.txt'
     end
   end
 
@@ -65,8 +65,8 @@ RSpec.feature 'Users can create new tickets' do
     fill_in 'Description', with: 'The blink tag has a speed attribute'
     click_button 'Create Ticket'
 
-    within('#ticket .assets') do
-      expect(page).to have_content('speed.txt')
+    within('#ticket .attachments') do
+      expect(page).to have_content 'speed.txt'
     end
   end
 end
