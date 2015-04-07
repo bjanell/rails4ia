@@ -18,5 +18,5 @@ Rails.application.routes.draw do
     resources :tickets
   end
 
-  resources :assets, only: [:show, :new], path: :files
+  resources :attachments, only: [:show, :new]
 end
