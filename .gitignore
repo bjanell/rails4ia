@@ -16,5 +16,5 @@
 /.idea
 
 # Ignore public updloads directory
-public/uploads
+uploads
 
