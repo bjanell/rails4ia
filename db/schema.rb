@@ -11,7 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150403223208) do
+ActiveRecord::Schema.define(version: 20150407213958) do
+
+  create_table "assets", force: :cascade do |t|
+    t.string   "asset",      limit: 255
+    t.integer  "ticket_id",  limit: 4
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "assets", ["ticket_id"], name: "index_assets_on_ticket_id", using: :btree
+
+  create_table "attachments", force: :cascade do |t|
+    t.string   "file",       limit: 255
+    t.integer  "ticket_id",  limit: 4
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "attachments", ["ticket_id"], name: "index_attachments_on_ticket_id", using: :btree
 
   create_table "projects", force: :cascade do |t|
     t.string   "name",        limit: 255
@@ -38,7 +56,6 @@ ActiveRecord::Schema.define(version: 20150403223208) do
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
     t.integer  "author_id",   limit: 4
-    t.string   "attachment",  limit: 255
   end
 
   add_index "tickets", ["author_id"], name: "index_tickets_on_author_id", using: :btree
@@ -64,6 +81,8 @@ ActiveRecord::Schema.define(version: 20150403223208) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "assets", "tickets"
+  add_foreign_key "attachments", "tickets"
   add_foreign_key "roles", "projects"
   add_foreign_key "roles", "users"
   add_foreign_key "tickets", "projects"
