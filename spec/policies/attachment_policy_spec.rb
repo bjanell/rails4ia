@@ -1,14 +1,14 @@
 require 'rails_helper'
 
-RSpec.describe AssetPolicy do
+RSpec.describe AttachmentPolicy do
 
   context 'permissions' do
-    subject { AssetPolicy.new(user, asset) }
+    subject { AttachmentPolicy.new(user, attachment) }
 
     let(:user) { FactoryGirl.create(:user) }
     let(:project) { FactoryGirl.create(:project) }
     let(:ticket) { FactoryGirl.create(:ticket, project: project) }
-    let(:asset) { FactoryGirl.create(:asset, ticket: ticket) }
+    let(:attachment) { FactoryGirl.create(:attachment, ticket: ticket) }
 
     context 'for anonymous users' do
       let(:user) { nil }

@@ -5,7 +5,7 @@ class TicketsController < ApplicationController
   def new
     @ticket = @project.tickets.build
     authorize @ticket, :create?
-    @ticket.assets.build
+    @ticket.attachments.build
   end
 
   def create
@@ -24,6 +24,7 @@ class TicketsController < ApplicationController
 
   def show
     authorize @ticket, :show?
+    @comment = @ticket.comments.build
   end
 
   def edit
@@ -54,7 +55,7 @@ class TicketsController < ApplicationController
   private
 
   def ticket_params
-    params.require(:ticket).permit(:name, :description, assets_attributes: [:asset, :asset_cache])
+    params.require(:ticket).permit(:name, :description, attachments_attributes: [:file, :file_cache])
   end
 
   def set_project
