@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150408235627) do
+ActiveRecord::Schema.define(version: 20150409161903) do
 
   create_table "attachments", force: :cascade do |t|
     t.string   "file",       limit: 255
@@ -56,8 +56,9 @@ ActiveRecord::Schema.define(version: 20150408235627) do
   add_index "roles", ["user_id"], name: "index_roles_on_user_id", using: :btree
 
   create_table "states", force: :cascade do |t|
-    t.string "name",  limit: 255
-    t.string "color", limit: 255
+    t.string  "name",    limit: 255
+    t.string  "color",   limit: 255
+    t.boolean "default", limit: 1,   default: false
   end
 
   create_table "tickets", force: :cascade do |t|
