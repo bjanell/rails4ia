@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150408211017) do
+ActiveRecord::Schema.define(version: 20150408235627) do
 
   create_table "attachments", force: :cascade do |t|
     t.string   "file",       limit: 255
@@ -23,15 +23,17 @@ ActiveRecord::Schema.define(version: 20150408211017) do
   add_index "attachments", ["ticket_id"], name: "index_attachments_on_ticket_id", using: :btree
 
   create_table "comments", force: :cascade do |t|
-    t.text     "text",       limit: 65535
-    t.integer  "ticket_id",  limit: 4
-    t.integer  "author_id",  limit: 4
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-    t.integer  "state_id",   limit: 4
+    t.text     "text",              limit: 65535
+    t.integer  "ticket_id",         limit: 4
+    t.integer  "author_id",         limit: 4
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.integer  "state_id",          limit: 4
+    t.integer  "previous_state_id", limit: 4
   end
 
   add_index "comments", ["author_id"], name: "index_comments_on_author_id", using: :btree
+  add_index "comments", ["previous_state_id"], name: "index_comments_on_previous_state_id", using: :btree
   add_index "comments", ["state_id"], name: "fk_rails_0b04c8c5eb", using: :btree
   add_index "comments", ["ticket_id"], name: "index_comments_on_ticket_id", using: :btree
 
@@ -94,6 +96,7 @@ ActiveRecord::Schema.define(version: 20150408211017) do
 
   add_foreign_key "attachments", "tickets"
   add_foreign_key "comments", "states"
+  add_foreign_key "comments", "states", column: "previous_state_id"
   add_foreign_key "comments", "tickets"
   add_foreign_key "comments", "users", column: "author_id"
   add_foreign_key "roles", "projects"
