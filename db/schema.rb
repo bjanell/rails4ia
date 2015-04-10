@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150409161903) do
+ActiveRecord::Schema.define(version: 20150410160448) do
 
   create_table "attachments", force: :cascade do |t|
     t.string   "file",       limit: 255
@@ -60,6 +60,18 @@ ActiveRecord::Schema.define(version: 20150409161903) do
     t.string  "color",   limit: 255
     t.boolean "default", limit: 1,   default: false
   end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name", limit: 255
+  end
+
+  create_table "tags_tickets", id: false, force: :cascade do |t|
+    t.integer "tag_id",    limit: 4, null: false
+    t.integer "ticket_id", limit: 4, null: false
+  end
+
+  add_index "tags_tickets", ["tag_id", "ticket_id"], name: "index_tags_tickets_on_tag_id_and_ticket_id", using: :btree
+  add_index "tags_tickets", ["ticket_id", "tag_id"], name: "index_tags_tickets_on_ticket_id_and_tag_id", using: :btree
 
   create_table "tickets", force: :cascade do |t|
     t.string   "name",        limit: 255
