@@ -2,6 +2,7 @@
 
     <%= f.input :name %>
     <%= f.input :description %>
+    <%= render 'tags/form', f: f %>
     <div id="attachments">
       <h3>Attachments</h3>
       <%= render partial: 'attachments/form', locals: { f: f, index: 0 } %>
